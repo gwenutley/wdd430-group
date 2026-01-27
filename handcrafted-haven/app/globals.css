@@ -88,7 +88,8 @@ h2 {
   margin-bottom: 1rem;
 }
 
-.sell-form {
+/* forms */
+form {
   width: 90%;
   max-width: 800px;
   display: flex;
@@ -99,7 +100,7 @@ h2 {
   border-radius: 8px;
 }
 
-.sell-form label {
+form label {
   font-weight: bold;
   display: flex;
   flex-direction: column;
@@ -107,21 +108,21 @@ h2 {
   gap: .5rem;
 }
 
-.sell-form input,
-.sell-form textarea,
-.sell-form select {
+form input,
+form textarea,
+form select {
   padding: 0.5rem;
   font-size: 1rem;
   border: 1px solid black;
   border-radius: 4px;
 }
 
-.sell-form textarea {
+form textarea {
   resize: vertical;
   min-height: 120px;
 }
 
-.sell-form button {
+form button {
   margin-top: 1rem;
   padding: .75rem;
   font-size: 1rem;
@@ -131,7 +132,7 @@ h2 {
   border-radius: 6px;
 }
 
-.sell-form button:hover {
+form button:hover {
   background-color: #333;
 }
 
