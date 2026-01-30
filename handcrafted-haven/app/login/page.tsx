@@ -2,14 +2,16 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { loginUser } from "./actions/loginUser";
 
 export default function LoginPage() {
+    const router = useRouter();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [role, setRole] = useState("buyer");
     const [message, setMessage] = useState("");
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
         if (!email || !password) {
@@ -17,14 +19,26 @@ export default function LoginPage() {
             return;
         }
 
-        if(role === "buyer") {
-            setMessage(`Logged in as Buyer: ${email}`);
-        } else {
-            setMessage(`Logged in as Seller: ${email}`);
-        }
+        try {
+            const formData = new FormData();
+            formData.append("email", email);
+            formData.append("password", password);
 
-        setEmail("");
-        setPassword("");
+            const user = await loginUser(formData);
+
+            if (user.accountType === "buyer") {
+                setMessage(`Welcome, you are logged in as a Buyer.`);
+                router.push("/");
+            } else if (user.accountType === "seller") {
+                setMessage(`Welcome, you are logged in as a Seller.`);
+                router.push("/sell");
+            }
+
+            setEmail("");
+            setPassword("");
+        } catch (error: any) {
+            setMessage(error.message || "login didn't work");
+        }
     };
 
     return (
@@ -32,29 +46,17 @@ export default function LoginPage() {
             <h1>Login</h1>
             <p>Enter your info to access your account</p>
             <section className="login-section">
-                <form className="login-form">
-                    <label>
-                        First Name:
-                        <input type="text" />
-                    </label>
-
-                    <label>
-                        Last Name:
-                        <input type="text" />
-                    </label>
-
+                <form className="login-form" onSubmit={handleSubmit}>
                     <label>
                         Email:
-                        <input type="email" />
+                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
                     </label>
 
                     <label>
-                        Account Type:
-                        <select>
-                            <option>Buyer</option>
-                            <option>Seller</option> 
-                        </select>
+                        Password:
+                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required/>
                     </label>
+                        
                     <button type="submit">Login</button>    
                     
                     <p className="message">{message}</p>
