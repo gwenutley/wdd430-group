@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { getProducts } from "./actions/getProducts";
+import { deleteProduct } from "./actions/getProducts";
+import Image from "next/image";
 
 export default async function AccountPage() {
     let products: any[] = [];
@@ -26,14 +28,33 @@ export default async function AccountPage() {
                 {products.length === 0 ? (
                     <p>You have not listed any products yet.</p>
                 ) : (
-                    <ul>
+                    <ul className="product-grid">
                         {products.map((product: any) => (
-                            <li key={product.id}>
-                                <h3>{product.title}</h3>
-                                {product.image_url && <img src={product.image_url} alt={product.title} width={200} />}
-                                <p>{product.description}</p>
-                                <p>Price: ${product.price}</p>
-                                <p>Category: {product.category}</p>
+                            <li key={product.id} className="card">
+                                <h3 className="title">{product.title}</h3>
+                                {product.image_url && 
+                                    <div className="image-container">
+                                        <Image
+                                            src={product.image_url} 
+                                            alt={product.title} 
+                                            fill 
+                                            className="item-image"
+                                        />
+                                    </div>
+                                }
+                                <div className="product-details">
+                                    <p className="description">{product.description}</p>
+                                    <p className="price">Price: ${product.price}</p>
+                                    <p className="category">Category: {product.category}</p>
+                                    <form className="form-delete" action={async () => {
+                                        "use server";
+                                        await deleteProduct(product.id);
+                                    }}>
+                                        <button type="submit" className="delete-button">
+                                            Delete Product
+                                        </button>
+                                    </form>
+                                </div>
                             </li>
                         ))}
                     </ul>

@@ -4,6 +4,20 @@ import { cookies } from 'next/headers';
 
 const sql = neon(process.env.DATABASE_URL!);
 
+export async function deleteProduct(productId: number) {
+    const cookieStore = await cookies();
+    const userId = cookieStore.get('user_id')?.value;
+    if(!userId) {
+        throw new Error('User not logged in');
+    }
+
+    await sql`
+        DELETE FROM products 
+        WHERE id = ${productId} 
+            AND seller_id = ${parseInt(userId, 10)}
+    `;
+}
+
 export async function getProducts() {
     const cookieStore = await cookies();
     const userId = cookieStore.get('user_id')?.value;

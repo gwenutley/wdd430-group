@@ -24,9 +24,16 @@ export async function createProduct(formData: FormData) {
     const description = formData.get('description') as string;
     const price = formData.get('price') as string;
     const category = formData.get('category') as string;
-    const imageUrl = formData.get('imageUrl') as string;
+    const imageUrlRaw = formData.get('image_url') as string | null;
+    const imageUrl = imageUrlRaw?.trim() || null;
     const sellerId = parseInt(userId, 10);
 
+    //check the image url is valid 
+    if (imageUrl && !imageUrl.startsWith('http')) {
+    throw new Error('Image URL must be a valid URL');
+    }
+
+    //check the form is filled out
     if(!title || !description || !price || !category) {
         throw new Error('All fields are required');
     }

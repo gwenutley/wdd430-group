@@ -68,9 +68,175 @@ h1 {
 
 p {
     font-size: 1.25rem;
-    max-width: 600px;
     line-height: 1.6;
 }
+
+/* browse page*/
+.image-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: black;
+}
+
+.item-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* product cards */
+.product-grid ,
+.browse-items{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: .5rem;
+  list-style: none;
+}
+
+.card,
+.browse-item {
+  background: white;
+  border: 2px solid black;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  text-align: center;
+  padding: 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-bottom: 1px solid black;
+}
+
+.product-details {
+  text-align: center;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-decoration: none;
+}
+
+.description {
+  font-size: 1.1rem;
+  color: black;
+}
+
+.price {
+  font-weight: bold;
+}
+
+.category {
+  font-size: 1rem;
+  color: black;
+}
+
+.browse-item-link {
+  text-decoration: none;
+  color: inherit; 
+}
+
+.browse-item-link:hover {
+  text-decoration: underline; 
+}
+
+/*Delete button*/
+.form-delete {
+  all:unset;
+  display: inline-block;
+}
+.delete-button {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: .25rem;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 0 1rem 0;
+}
+
+.delete-button:hover {
+  background-color: darkred;
+}
+
+
+/* product details page */
+.product-detail-page {
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.image-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.product-image {
+  border-radius: 10px;
+  object-fit: cover;
+  max-width: 100%;
+  height: auto;
+}
+
+.product-info {
+  text-align: center
+}
+
+.product-info .title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.product-info .description,
+.product-info .price,
+.product-info .category {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.links {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.buy,
+.back-link {
+  padding: 1rem 1.5rem;
+  text-decoration: none;
+  background-color: black;
+  border-radius: 5px;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.back-link {
+  background-color: black;
+}
+
+.buy:hover {
+  background-color: #333;
+}
+
+.back-link:hover {
+  background-color: #333;
+}
+
+
 
 
 /*Sell Page*/
@@ -89,7 +255,9 @@ h2 {
 }
 
 /* forms */
-form {
+.login-form,
+.register-form,
+.sell-form {
   width: 90%;
   max-width: 800px;
   display: flex;
@@ -122,7 +290,9 @@ form textarea {
   min-height: 120px;
 }
 
-form button {
+.login-form button,
+.register-form button,
+.sell-form button {
   margin-top: 1rem;
   padding: .75rem;
   font-size: 1rem;
@@ -132,7 +302,9 @@ form button {
   border-radius: 6px;
 }
 
-form button:hover {
+.login-form button:hover,
+.register-form button:hover,
+.sell-form button:hover {
   background-color: #333;
 }
 
