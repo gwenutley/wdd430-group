@@ -15,6 +15,7 @@ export type Item = {
 };
 
 export default function BrowsePage() {
+    const [searchInput, setSearchInput] = useState("");
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("all");
     const [items, setItems] = useState<Item[]>([]);
@@ -34,8 +35,15 @@ export default function BrowsePage() {
 
     //search items and filter them
     const displayItems = items.filter(item => {
-        const matchesSearch = item.name.toLowerCase().includes(search.toLowerCase());
-        const matchesFilter = filter ==="all" || item.category === filter;
+        const searchLower = search.toLowerCase();
+
+        const matchesSearch = 
+            item.name.toLowerCase().includes(searchLower) ||
+            item.description.toLowerCase().includes(searchLower) ||
+            item.category.toLowerCase().includes(searchLower);
+        
+        const matchesFilter = filter === "all" || item.category === filter;
+
         return matchesSearch && matchesFilter;
     });
 
@@ -45,8 +53,11 @@ export default function BrowsePage() {
             <p>Explore unique items from talented artisans</p>
 
             <section className="browse-filters">
-                <input type="text" placeholder="Search items..." value={search} onChange={(e) => setSearch(e.target.value)}/>
-                <select value={filter} onChange={(e) => setFilter(e.target.value)}>
+                <form className="search-form" onSubmit={(e) => {e.preventDefault(); setSearch(searchInput);}}>
+                    <input className="search" type="text" placeholder="Search items..." value={searchInput} onChange={(e) => setSearchInput(e.target.value)}/>
+                    <button className="search-button" onClick={() => setSearch(searchInput)}>Search</button>
+                </form>
+                <select className="category-select"value={filter} onChange={(e) => setFilter(e.target.value)}>
                     <option value="all">All Categories</option>
                     <option value="Home Decor">Home Decor</option>
                     <option value="Jewelry">Jewelry</option>

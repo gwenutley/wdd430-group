@@ -255,6 +255,7 @@ h2 {
 }
 
 /* forms */
+.buy-form,
 .login-form,
 .register-form,
 .sell-form {
@@ -290,9 +291,11 @@ form textarea {
   min-height: 120px;
 }
 
+.buy-form button,
 .login-form button,
 .register-form button,
-.sell-form button {
+.sell-form button,
+.comment-button {
   margin-top: 1rem;
   padding: .75rem;
   font-size: 1rem;
@@ -300,11 +303,118 @@ form textarea {
   color: white;
   border: none;
   border-radius: 6px;
+  text-decoration: none;
 }
 
 .login-form button:hover,
 .register-form button:hover,
-.sell-form button:hover {
+.sell-form button:hover,
+.search-form button:hover,
+.comment-button:hover {
   background-color: #333;
 }
 
+/*search bar filters */
+.search-form {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  justify-content: center ;
+}
+
+.search-form button {
+  padding: .1rem;
+  color: white;
+  background-color: black;
+  padding: .5rem;
+  border-radius: 5px;
+}
+
+.search {
+  padding: .5rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 200px;
+}
+
+.category-select {
+  display: block;
+  margin: .5rem auto;
+  padding: .5rem;
+  border: 1px solid black;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+
+
+/* home page */
+.featured {
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.featured-items {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.featured-item {
+  width: 250px;
+  text-align: center;
+}
+
+.featured image {
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.featured-item h3 {
+  margin-top: 1rem;
+}
+
+.featured-item p {
+  margin-top: .5rem;
+  font-size: 1.1rem;
+}
+
+
+/*comments section*/
+.comments-section {
+	margin-top: 1rem;
+  margin-bottom: 1rem;
+  max-width: 1000px;
+}
+
+.comments-list{
+	display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	gap: 1.5rem;
+	list-style: none;
+	padding: 0;
+  margin: 0 auto;
+	margin-bottom: 2rem;
+  justify-content: center;
+}
+
+.comment-card {
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: left;
+}
+
+.comment-user {
+  font-weight: bold;
+  margin-bottom: .5rem;
+}
+
+.comment-text {
+  font-size: 1rem;
+  color: black;
+}
