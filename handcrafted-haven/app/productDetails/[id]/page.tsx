@@ -14,6 +14,7 @@ type Product = {
   category: string;
   price: number;
   imageUrl: string;
+  seller_id: number;
 };
 
 type PageProps = {
@@ -59,7 +60,7 @@ export default async function ProductDetailsPage({ params }: PageProps) {
           <p className="price">Price: ${product.price}</p>
 
           <div className="links">
-            
+            <Link href={`/seller/${product.seller_id}`} className="seller-link">View Seller Profile</Link>
             <Link href="/browse" className="back-link">Back to Browse</Link>
           </div>
         </div>

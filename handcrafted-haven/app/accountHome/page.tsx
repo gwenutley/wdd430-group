@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "next/link";   
 import { getProducts } from "./actions/getProducts";
 import { deleteProduct } from "./actions/getProducts";
 import Image from "next/image";
@@ -13,18 +13,10 @@ export default async function AccountPage() {
 
     return (
         <main>
-            <header>
-                <nav className="nav">
-                <Link href="/">Home</Link> 
-                <Link href="/sell">Sell</Link> 
-                <Link href="/login">Login</Link> 
-                <Link href="/browse">Browse</Link>
-                </nav>
-
-                <h1>My Account</h1>
-            </header>
             <section>
                 <h2>My Products</h2>
+                <Link href="/accountHome/messages" className="messages-link">View Messages</Link>
+                <Link href="/sell" className="sell-link">Add a Product</Link>
                 {products.length === 0 ? (
                     <p>You have not listed any products yet.</p>
                 ) : (

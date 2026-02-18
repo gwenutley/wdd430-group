@@ -31,8 +31,8 @@ export default function LoginPage() {
                 router.push("/");
             } else if (user.accountType === "seller") {
                 setMessage(`Welcome, you are logged in as a Seller.`);
-                router.push("/sell");
-            }
+                router.push("/accountHome");
+            } 
 
             setEmail("");
             setPassword("");
