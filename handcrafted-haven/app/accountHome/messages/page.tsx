@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { neon } from '@neondatabase/serverless';
 import { cookies } from 'next/headers';
 import  Link  from 'next/link';
