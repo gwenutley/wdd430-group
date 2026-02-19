@@ -11,6 +11,10 @@ export async function registerUser(formData: FormData) {
   const password = formData.get('password') as string;
   const accountType = formData.get('accountType') as string;
 
+  if (!email || !password || !accountType) {
+    throw new Error('Missing required fields');
+  }
+  
   await sql
     `
     INSERT INTO users (email, password, account_type)

@@ -47,6 +47,7 @@ export default async function ProductDetailsPage({ params }: PageProps) {
               alt={product.name}
               width={600}
               height={600}
+              style={{ width: '100%', height: 'auto' }}
               className="product-image"
               priority
             />

@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import SellForm from './SellForm/page';
+import Link from 'next/link';
 
 export default async function SellPage() {
   const cookieStore = await cookies();
@@ -19,7 +20,7 @@ export default async function SellPage() {
     <main>
       <h1>Sell Your Products</h1>
       <p>Share your unique items with our community</p>
-
+        <Link href="/accountHome" className="back-link">Back to Account Home</Link>
       <SellForm />
     </main>
   );

@@ -17,7 +17,7 @@ export default async function SellerPage({ params }: PageProps) {
     }
 
     const seller = await sql`
-        SELECT id, user_name
+        SELECT id, user_name, bio
         FROM users
         WHERE id = ${sellerId}
     `;
@@ -35,6 +35,13 @@ export default async function SellerPage({ params }: PageProps) {
     return (
         <main className="bproduct-details-page">
             <h2>{seller[0].user_name}'s Shop</h2>
+
+            {seller[0].bio && (
+                <section className="seller-public-bio">
+                    <h3>About the Seller</h3>
+                    <p>{seller[0].bio}</p>
+                </section>
+            )}
 
             {products.length === 0 ? (
             <p>No products found for this seller.</p>

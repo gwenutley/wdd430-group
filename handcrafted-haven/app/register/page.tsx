@@ -1,8 +1,26 @@
 'use client';
+
 import { registerUser } from './actions/registerUser';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function RegisterPage() {
-    
+    const router = useRouter();
+    const [error, setError] = useState("");
+
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+        setError("");
+        const formData = new FormData(e.currentTarget);
+
+        try {
+            await registerUser(formData);
+            router.push('/login');
+        } catch (err: any) {
+            setError(err.message || "Registration failed. Please try again.");
+        }
+    }
+
     return (
         <main>
             <h2>Register Account</h2>

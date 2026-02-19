@@ -5,8 +5,29 @@ import Link from "next/link";
 import { getProducts } from "./actions/getProducts";
 import { deleteProduct } from "./actions/getProducts";
 import Image from "next/image";
+import { neon } from '@neondatabase/serverless';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+
+const sql = neon(process.env.DATABASE_URL!);
 
 export default async function AccountPage() {
+    const cookieStore = await cookies();
+    const userId = cookieStore.get('user_id')?.value;
+    const accountType = cookieStore.get('account_type')?.value;
+
+    if (!userId || accountType !== "seller") {
+        redirect('/login');
+    }
+
+    const sellerId = parseInt(userId, 10);
+
+    const seller = await sql`
+        SELECT id, user_name, bio
+        FROM users
+        WHERE id = ${sellerId}
+    `;
+
     let products: any[] = [];
     try {
         products = await getProducts();
@@ -17,7 +38,30 @@ export default async function AccountPage() {
     return (
         <main>
             <section>
-                <h2>My Products</h2>
+                <section className="seller-bio-section">
+                    <h2>My Story</h2>
+                    <form action={async (formData) => {
+                        "use server";
+
+                        const newBio = formData.get("bio") as string;
+
+                        await sql`
+                            UPDATE users
+                            SET bio = ${newBio}
+                            WHERE id = ${userId}
+                        `;
+                    }}>
+                        <textarea
+                            name="bio"
+                            defaultValue={seller[0]?.bio || ""}
+                            placeholder="Tell buyers about yourself and your work. . ."
+                            rows={6}
+                        />
+
+                        <button type="submit">Save Story</button>
+                    </form>
+                </section>
+                <h2 className="product-head">My Products</h2>
                 <Link href="/accountHome/messages" className="messages-link">View Messages</Link>
                 <Link href="/sell" className="sell-link">Add a Product</Link>
                 {products.length === 0 ? (
